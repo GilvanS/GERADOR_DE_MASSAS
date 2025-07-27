@@ -67,15 +67,18 @@ O projeto foi desenhado para ser importado em outras aplicações, como um frame
 
 Para que outros projetos Maven em sua máquina possam encontrar esta biblioteca, execute o seguinte comando na pasta raiz do `GeradorDeMassas`:
 
+
 Este comando compila o projeto, empacota-o em um arquivo JAR e o instala no seu repositório Maven local (geralmente em `C:/Users/SEU_USUARIO/.m2/repository`).
 
 ### 4.2. Passo 2: Adicionar como Dependência
 
 No `pom.xml` do projeto que irá consumir o gerador, adicione a seguinte dependência:
 
+
 ### 4.3. Passo 3: Utilizar no Código
 
 Agora, você pode facilmente instanciar e usar o `GeradorService` em qualquer parte do seu outro projeto.
+
 
 ## 5. Tecnologias Utilizadas
 
