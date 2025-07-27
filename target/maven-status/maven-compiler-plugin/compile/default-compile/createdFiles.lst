@@ -1,0 +1,13 @@
+br\com\geradormassa\model\Usuario.class
+br\com\geradormassa\generators\DocumentosGenerator.class
+br\com\geradormassa\enums\TipoMassa.class
+br\com\geradormassa\generators\EmpresaGenerator.class
+br\com\geradormassa\service\GeradorService$1.class
+br\com\geradormassa\generators\PasswordGenerator.class
+br\com\geradormassa\service\GeradorService.class
+br\com\geradormassa\writers\CsvWriterService.class
+br\com\geradormassa\Main.class
+br\com\geradormassa\model\Usuario$UsuarioBuilder.class
+br\com\geradormassa\model\Empresa.class
+br\com\geradormassa\generators\UsuarioGenerator.class
+br\com\geradormassa\model\Empresa$EmpresaBuilder.class
