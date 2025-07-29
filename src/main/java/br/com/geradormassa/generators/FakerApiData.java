@@ -51,19 +51,22 @@ public final class FakerApiData {
 
 	private FakerApiData() {}
 
+	// Em: /src/main/java/br/com/geradormassa/generators/FakerApiData.java
+
 	public static FakerApiData gerarDados() {
 		FakerApiData data = new FakerApiData();
 
 		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 			HttpGet request = new HttpGet(FAKER_API_URL);
+			// <<< MELHORIA 1: Garante a leitura em UTF-8 para evitar problemas de acentuação na origem.
 			String jsonResponse = httpClient.execute(request, response ->
-					EntityUtils.toString(response.getEntity()));
+					EntityUtils.toString(response.getEntity(), java.nio.charset.StandardCharsets.UTF_8));
 
 			ObjectMapper mapper = new ObjectMapper();
 			JsonNode rootNode = mapper.readTree(jsonResponse);
 			JsonNode dataNode = rootNode.path("data").path(0);
 
-			// Mapeamento dos dados
+			// Mapeamento dos dados...
 			data.firstName = dataNode.path("firstName").asText();
 			data.lastName = dataNode.path("lastName").asText();
 			data.phoneNumber = dataNode.path("phoneNumber").asText();
@@ -80,9 +83,16 @@ public final class FakerApiData {
 			data.cvv = "123";
 			data.articleTitle = dataNode.path("articleTitle").asText();
 
+			// <<< MELHORIA 2: Lógica para juntar todos os parágrafos do artigo.
 			JsonNode articleContentNode = dataNode.path("articleContent");
-			if (articleContentNode.isArray() && articleContentNode.size() > 0) {
-				data.articleContent = articleContentNode.get(0).asText();
+			if (articleContentNode.isArray() && !articleContentNode.isEmpty()) {
+				StringBuilder contentBuilder = new StringBuilder();
+				// Itera sobre cada parágrafo retornado pela API
+				for (JsonNode paragraph : articleContentNode) {
+					contentBuilder.append(paragraph.asText()).append("\n\n"); // Adiciona o parágrafo e uma quebra de linha dupla
+				}
+				// Remove a quebra de linha extra do final
+				data.articleContent = contentBuilder.toString().trim();
 			} else {
 				data.articleContent = "Conteúdo do artigo não disponível.";
 			}

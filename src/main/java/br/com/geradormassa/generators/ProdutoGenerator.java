@@ -17,17 +17,28 @@ public class ProdutoGenerator implements Gerador<Produto> { // 1. Implementa a i
     // Formata o preço com ponto, para consistência.
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
+    // DADOS EXPANDIDOS
     private static final String[] NOMES_PRODUTO = {
             "Smartphone", "Notebook", "Fone de Ouvido", "Smartwatch", "Tablet", "Camera Digital",
-            "Teclado Mecanico", "Mouse Gamer", "Monitor 4K", "Cadeira Gamer"
+            "Teclado Mecanico", "Mouse Gamer", "Monitor 4K", "Cadeira Gamer", "Impressora 3D",
+            "Projetor HD", "SSD Externo", "Power Bank", "Roteador Wi-Fi 6", "Placa de Video",
+            "Processador", "Memoria RAM", "Cooler CPU", "Gabinete ATX", "Webcam Full HD",
+            "Microfone Condensador", "Mesa Digitalizadora", "Drone", "Soundbar", "Smart TV 8K",
+            "Console de Videogame", "Oculos de Realidade Virtual", "Leitor de E-book", "HD Externo"
     };
 
+    // DADOS EXPANDIDOS
     private static final String[] CATEGORIAS = {
-            "Eletronicos", "Informatica", "Acessorios", "Fotografia", "Perifericos", "Games"
+            "Eletronicos", "Informatica", "Acessorios", "Fotografia", "Perifericos", "Games",
+            "Hardware", "Redes e Conectividade", "Audio e Video", "Componentes", "Casa Inteligente",
+            "Dispositivos Moveis", "Armazenamento", "Energia", "Impressao"
     };
 
+    // DADOS EXPANDIDOS
     private static final String[] ADJETIVOS = {
-            "Moderno", "Potente", "Sem Fio", "Ultra-fino", "Profissional", "RGB", "Ergonomica"
+            "Moderno", "Potente", "Sem Fio", "Ultra-fino", "Profissional", "RGB", "Ergonomica",
+            "Compacto", "Resistente", "Silencioso", "Veloz", "Inteligente", "Premium", "Essencial",
+            "Versatil", "Sustentavel", "Customizavel", "Portatil", "Imersivo", "Conectado"
     };
 
     // 2. O construtor agora é público (o construtor padrão, que é público).

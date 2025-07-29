@@ -6,12 +6,65 @@ import br.com.geradormassa.utils.StringUtils;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 public class ArtigoGenerator implements Gerador<Artigo> {
 
     private static final DateTimeFormatter ISO_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    private static final Random random = new Random();
 
     private final FakerApiData dadosApi;
+
+    // --- TEMPLATES PARA GERAÇÃO DE ARTIGOS TEMÁTICOS ---
+
+    private static final String[] CATEGORIAS = {
+            "Tecnologia", "Programação", "Universo e Astronomia", "Ciência e Física",
+            "Saúde e Bem-Estar", "Educação", "História", "Cultura Pop"
+    };
+
+    private static final String[][] TEMPLATES_TITULO = {
+            // Tecnologia
+            {"O Futuro da {TEMA}", "Como a {TEMA} Está Moldando o Mundo", "5 Tendências em {TEMA} para Ficar de Olho"},
+            // Programação
+            {"Guia Completo de {TEMA} para Iniciantes", "Otimizando Performance com {TEMA}", "Por que Aprender {TEMA} em {ANO}?"},
+            // Universo e Astronomia
+            {"Desvendando os Mistérios de {TEMA}", "O Telescópio James Webb e a Busca por {TEMA}", "A Incrível Jornada até {TEMA}"},
+            // Ciência e Física
+            {"Uma Introdução à {TEMA}", "Como a {TEMA} Explica o Cotidiano", "Os Limites do Conhecimento em {TEMA}"},
+            // Saúde e Bem-Estar
+            {"10 Dicas para Melhorar sua {TEMA}", "Os Benefícios da {TEMA} para a Mente", "Alimentação e {TEMA}: Uma Conexão Vital"},
+            // Educação
+            {"A Revolução da {TEMA} na Sala de Aula", "Métodos Inovadores de {TEMA}", "O Papel da {TEMA} no Desenvolvimento Infantil"},
+            // História
+            {"A Ascensão e Queda do {TEMA}", "O Legado do {TEMA} na Sociedade Moderna", "Como o {TEMA} Mudou o Curso da História"},
+            // Cultura Pop
+            {"Análise Profunda de {TEMA}", "O Impacto Cultural de {TEMA}", "Por que {TEMA} Continua Relevante Hoje?"}
+    };
+
+    private static final String[][] PALAVRAS_CHAVE = {
+            // Tecnologia
+            {"Inteligência Artificial", "Computação Quântica", "Realidade Aumentada", "Blockchain", "5G"},
+            // Programação
+            {"Python", "JavaScript", "APIs REST", "Micro-serviços", "Clean Code", "Docker"},
+            // Universo e Astronomia
+            {"Buracos Negros", "Exoplanetas", "Nebulosas", "Matéria Escura", "Galáxias Distantes"},
+            // Ciência e Física
+            {"Teoria da Relatividade", "Física Quântica", "Genética", "Neurociência", "Leis de Newton"},
+            // Saúde e Bem-Estar
+            {"Saúde Mental", "Nutrição Funcional", "Meditação", "Qualidade de Sono", "Atividade Física"},
+            // Educação
+            {"Aprendizagem Híbrida", "Gamificação", "Inteligência Emocional", "Robótica Educacional", "STEAM"},
+            // História
+            {"Império Romano", "Antigo Egito", "Revolução Industrial", "Guerra Fria", "Renascimento"},
+            // Cultura Pop
+            {"Universo Cinematográfico Marvel", "Star Wars", "Animes Clássicos", "A Indústria dos Games", "Séries de TV"}
+    };
+
+    private static final String[] TEMPLATES_CONTEUDO = {
+            "Neste artigo, mergulhamos fundo no tópico de {TITULO}. Exploramos como a {CATEGORIA} tem evoluído e o impacto que {PALAVRA_CHAVE} tem em nosso dia a dia. Acompanhe a análise completa e descubra as últimas tendências.",
+            "Uma análise detalhada sobre {TITULO}. Abordamos desde os conceitos fundamentais até as aplicações mais avançadas de {PALAVRA_CHAVE}. Se você se interessa por {CATEGORIA}, este conteúdo é essencial para sua leitura.",
+            "O que realmente sabemos sobre {TITULO}? Este post desmistifica os principais pontos relacionados a {PALAVRA_CHAVE} no campo da {CATEGORIA}, trazendo insights valiosos e informações atualizadas para entusiastas e profissionais da área."
+    };
 
     // Recebe os dados da API para não fazer uma nova chamada
     public ArtigoGenerator(FakerApiData dadosApi) {
@@ -20,12 +73,34 @@ public class ArtigoGenerator implements Gerador<Artigo> {
 
     @Override
     public Artigo gerar() {
+        // 1. Seleciona uma categoria e seus dados correspondentes de forma aleatória
+        int indexCategoria = random.nextInt(CATEGORIAS.length);
+        String categoria = CATEGORIAS[indexCategoria];
+        String[] templatesTituloCategoria = TEMPLATES_TITULO[indexCategoria];
+        String[] palavrasChaveCategoria = PALAVRAS_CHAVE[indexCategoria];
+
+        // 2. Gera o título do artigo
+        String templateTitulo = templatesTituloCategoria[random.nextInt(templatesTituloCategoria.length)];
+        String palavraChaveTitulo = palavrasChaveCategoria[random.nextInt(palavrasChaveCategoria.length)];
+        String tituloArtigo = templateTitulo
+                .replace("{TEMA}", palavraChaveTitulo)
+                .replace("{ANO}", String.valueOf(LocalDateTime.now().getYear()));
+
+        // 3. Gera o conteúdo do artigo
+        String templateConteudo = TEMPLATES_CONTEUDO[random.nextInt(TEMPLATES_CONTEUDO.length)];
+        String palavraChaveConteudo = palavrasChaveCategoria[random.nextInt(palavrasChaveCategoria.length)];
+        String conteudoArtigo = templateConteudo
+                .replace("{TITULO}", tituloArtigo)
+                .replace("{CATEGORIA}", categoria)
+                .replace("{PALAVRA_CHAVE}", palavraChaveConteudo);
+
+        // 4. Obtém os dados restantes
         String nomeAutor = StringUtils.removerAcentos(dadosApi.getFullName());
         String dataPublicacao = LocalDateTime.now(ZoneOffset.UTC).format(ISO_FORMATTER);
 
         return Artigo.builder()
-                .tituloArtigo(StringUtils.removerAcentos(dadosApi.getArticleTitle()))
-                .conteudoArtigo(StringUtils.removerAcentos(dadosApi.getArticleContent()))
+                .tituloArtigo(StringUtils.removerAcentos(tituloArtigo))
+                .conteudoArtigo(StringUtils.removerAcentos(conteudoArtigo))
                 .nomeAutor(nomeAutor)
                 .dataPublicacao(dataPublicacao)
                 .build();
