@@ -15,79 +15,53 @@ public class ArtigoGenerator implements Gerador<Artigo> {
 
     private final FakerApiData dadosApi;
 
-    // --- TEMPLATES PARA GERAÇÃO DE ARTIGOS TEMÁTICOS (SUPER EXPANDIDO) ---
+    // --- DADOS PARA GERAÇÃO (TÍTULOS E PALAVRAS-CHAVE CONTINUAM RICOS) ---
 
     private static final String[] CATEGORIAS = {
-            // Originais
-            "Tecnologia", "Programação", "Universo e Astronomia", "Ciência e Física",
-            "Saúde e Bem-Estar", "Educação", "História", "Cultura Pop",
-            // Novas Categorias
-            "Finanças e Investimentos", "Viagens e Turismo", "Gastronomia e Culinária", "Meio Ambiente e Sustentabilidade", "Esportes"
+            "Tecnologia", "Programacao", "Universo e Astronomia", "Ciencia e Fisica",
+            "Saude e Bem-Estar", "Educacao", "Historia", "Cultura Pop",
+            "Financas e Investimentos", "Viagens e Turismo", "Gastronomia e Culinaria", "Meio Ambiente", "Esportes"
     };
 
     private static final String[][] TEMPLATES_TITULO = {
-            // Tecnologia
-            {"O Futuro da {TEMA}", "Como a {TEMA} Está Moldando o Mundo", "5 Tendências em {TEMA} para Ficar de Olho"},
-            // Programação
-            {"Guia Completo de {TEMA} para Iniciantes", "Otimizando Performance com {TEMA}", "Por que Aprender {TEMA} em {ANO}?"},
-            // Universo e Astronomia
-            {"Desvendando os Mistérios de {TEMA}", "O Telescópio James Webb e a Busca por {TEMA}", "A Incrível Jornada até {TEMA}"},
-            // Ciência e Física
-            {"Uma Introdução à {TEMA}", "Como a {TEMA} Explica o Cotidiano", "Os Limites do Conhecimento em {TEMA}"},
-            // Saúde e Bem-Estar
-            {"10 Dicas para Melhorar sua {TEMA}", "Os Benefícios da {TEMA} para a Mente", "Alimentação e {TEMA}: Uma Conexão Vital"},
-            // Educação
-            {"A Revolução da {TEMA} na Sala de Aula", "Métodos Inovadores de {TEMA}", "O Papel da {TEMA} no Desenvolvimento Infantil"},
-            // História
-            {"A Ascensão e Queda do {TEMA}", "O Legado do {TEMA} na Sociedade Moderna", "Como o {TEMA} Mudou o Curso da História"},
-            // Cultura Pop
-            {"Análise Profunda de {TEMA}", "O Impacto Cultural de {TEMA}", "Por que {TEMA} Continua Relevante Hoje?"},
-            // Finanças e Investimentos (NOVO)
-            {"Guia de {TEMA} para Iniciantes", "Como Investir em {TEMA} com Segurança", "Entendendo o Mercado de {TEMA}"},
-            // Viagens e Turismo (NOVO)
-            {"Roteiro Inesquecível por {TEMA}", "As Melhores Dicas para Viajar para {TEMA}", "O que Fazer em {TEMA}: Um Guia Completo"},
-            // Gastronomia e Culinária (NOVO)
-            {"A Receita Perfeita de {TEMA}", "A História Surpreendente da {TEMA}", "Segredos da Culinária com {TEMA}"},
-            // Meio Ambiente (NOVO)
-            {"O Impacto do {TEMA} no Planeta", "Soluções Sustentáveis: Como Combater o {TEMA}", "Um Futuro com {TEMA}: É Possível?"},
-            // Esportes (NOVO)
-            {"Análise Tática do {TEMA}", "A Carreira Lendária de {TEMA}", "Os Maiores Momentos da História do {TEMA}"}
+            {"O Futuro do {TEMA}", "Como {TEMA} Esta Moldando o Mundo", "5 Tendencias em {TEMA}"},
+            {"Guia Completo de {TEMA}", "Otimizando Performance com {TEMA}", "Porque Aprender {TEMA}"},
+            {"Desvendando os Misterios de {TEMA}", "A Busca por {TEMA}", "A Incrivel Jornada ate {TEMA}"},
+            {"Uma Introducao a {TEMA}", "Como {TEMA} Explica o Cotidiano", "Os Limites do Conhecimento em {TEMA}"},
+            {"10 Dicas para Melhorar sua {TEMA}", "Os Beneficios da {TEMA}", "Alimentacao e {TEMA}"},
+            {"A Revolucao da {TEMA} na Sala de Aula", "Metodos Inovadores de {TEMA}", "O Papel da {TEMA}"},
+            {"A Ascensao e Queda do {TEMA}", "O Legado do {TEMA} na Sociedade", "Como {TEMA} Mudou a Historia"},
+            {"Analise Profunda de {TEMA}", "O Impacto Cultural de {TEMA}", "Porque {TEMA} Continua Relevante"},
+            {"Guia de {TEMA} para Iniciantes", "Como Investir em {TEMA}", "Entendendo o Mercado de {TEMA}"},
+            {"Roteiro Inesquecivel por {TEMA}", "Dicas para Viajar para {TEMA}", "O que Fazer em {TEMA}"},
+            {"A Receita Perfeita de {TEMA}", "A Historia da {TEMA}", "Segredos da Culinaria com {TEMA}"},
+            {"O Impacto do {TEMA} no Planeta", "Solucoes Sustentaveis para {TEMA}", "Um Futuro com {TEMA}"},
+            {"Analise Tatica do {TEMA}", "A Carreira Lendaria de {TEMA}", "Os Maiores Momentos do {TEMA}"}
     };
 
     private static final String[][] PALAVRAS_CHAVE = {
-            // Tecnologia
-            {"Inteligência Artificial", "Computação Quântica", "Realidade Aumentada", "Blockchain", "5G"},
-            // Programação
-            {"Python", "JavaScript", "APIs REST", "Micro-serviços", "Clean Code", "Docker"},
-            // Universo e Astronomia
-            {"Buracos Negros", "Exoplanetas", "Nebulosas", "Matéria Escura", "Galáxias Distantes"},
-            // Ciência e Física
-            {"Teoria da Relatividade", "Física Quântica", "Genética", "Neurociência", "Leis de Newton"},
-            // Saúde e Bem-Estar
-            {"Saúde Mental", "Nutrição Funcional", "Meditação", "Qualidade de Sono", "Atividade Física"},
-            // Educação
-            {"Aprendizagem Híbrida", "Gamificação", "Inteligência Emocional", "Robótica Educacional", "STEAM"},
-            // História
-            {"Império Romano", "Antigo Egito", "Revolução Industrial", "Guerra Fria", "Renascimento"},
-            // Cultura Pop
-            {"Universo Cinematográfico Marvel", "Star Wars", "Animes Clássicos", "A Indústria dos Games", "Séries de TV"},
-            // Finanças e Investimentos (NOVO)
-            {"Ações da Bolsa", "Criptomoedas", "Renda Fixa", "Fundos Imobiliários", "Planejamento Financeiro"},
-            // Viagens e Turismo (NOVO)
-            {"Sudeste Asiático", "Europa Central", "Patagônia", "Japão", "Litoral do Nordeste"},
-            // Gastronomia e Culinária (NOVO)
-            {"Cozinha Italiana", "Fermentação Natural", "Churrasco Americano", "Comida Vegana Gourmet", "Vinhos Franceses"},
-            // Meio Ambiente (NOVO)
-            {"Aquecimento Global", "Desmatamento", "Poluição Plástica", "Energias Renováveis", "Consumo Consciente"},
-            // Esportes (NOVO)
-            {"Futebol Europeu", "Basquete da NBA", "Fórmula 1", "Tênis", "MMA"}
+            {"Inteligencia Artificial", "Computacao Quantica", "Realidade Aumentada", "Blockchain", "5G"},
+            {"Python", "JavaScript", "APIs REST", "Micro-servicos", "Clean Code", "Docker"},
+            {"Buracos Negros", "Exoplanetas", "Nebulosas", "Materia Escura", "Galaxias Distantes"},
+            {"Teoria da Relatividade", "Fisica Quantica", "Genetica", "Neurociencia", "Leis de Newton"},
+            {"Saude Mental", "Nutricao Funcional", "Meditacao", "Qualidade de Sono", "Atividade Fisica"},
+            {"Aprendizagem Hibrida", "Gamificacao", "Inteligencia Emocional", "Robotica Educacional", "STEAM"},
+            {"Imperio Romano", "Antigo Egito", "Revolucao Industrial", "Guerra Fria", "Renascimento"},
+            {"Universo Marvel", "Star Wars", "Animes Classicos", "Industria dos Games", "Series de TV"},
+            {"Acoes da Bolsa", "Criptomoedas", "Renda Fixa", "Fundos Imobiliarios", "Planejamento Financeiro"},
+            {"Sudeste Asiatico", "Europa Central", "Patagonia", "Japao", "Litoral do Nordeste"},
+            {"Cozinha Italiana", "Fermentacao Natural", "Churrasco Americano", "Comida Vegana", "Vinhos Franceses"},
+            {"Aquecimento Global", "Desmatamento", "Poluicao Plastica", "Energias Renovaveis", "Consumo Consciente"},
+            {"Futebol Europeu", "Basquete da NBA", "Formula 1", "Tenis", "MMA"}
     };
 
+    // --- CORREÇÃO FINAL: TEMPLATES DE CONTEÚDO SUPER SIMPLIFICADOS ---
     private static final String[] TEMPLATES_CONTEUDO = {
-            "Neste artigo, mergulhamos fundo no tópico de {TITULO}. Exploramos como a {CATEGORIA} tem evoluído e o impacto que {PALAVRA_CHAVE} tem em nosso dia a dia. Acompanhe a análise completa e descubra as últimas tendências.",
-            "Uma análise detalhada sobre {TITULO}. Abordamos desde os conceitos fundamentais até as aplicações mais avançadas de {PALAVRA_CHAVE}. Se você se interessa por {CATEGORIA}, este conteúdo é essencial para sua leitura.",
-            "O que realmente sabemos sobre {TITULO}? Este post desmistifica os principais pontos relacionados a {PALAVRA_CHAVE} no campo da {CATEGORIA}, trazendo insights valiosos e informações atualizadas para entusiastas e profissionais da área."
+            "Este e um artigo sobre {TITULO}. O foco principal e em {PALAVRA_CHAVE} no campo da {CATEGORIA}.",
+            "Uma analise sobre o tema {TITULO}. Exploramos a relevancia de {PALAVRA_CHAVE} para a area de {CATEGORIA}.",
+            "Introducao ao topico {TITULO}. Discutimos os conceitos basicos de {PALAVRA_CHAVE} aplicados a {CATEGORIA}."
     };
+    // --- FIM DA CORREÇÃO ---
 
     public ArtigoGenerator(FakerApiData dadosApi) {
         this.dadosApi = dadosApi;
@@ -95,32 +69,26 @@ public class ArtigoGenerator implements Gerador<Artigo> {
 
     @Override
     public Artigo gerar() {
-        // 1. Seleciona uma categoria e seus dados correspondentes de forma aleatória
+        // Geração do conteúdo
         int indexCategoria = random.nextInt(CATEGORIAS.length);
         String categoria = CATEGORIAS[indexCategoria];
         String[] templatesTituloCategoria = TEMPLATES_TITULO[indexCategoria];
         String[] palavrasChaveCategoria = PALAVRAS_CHAVE[indexCategoria];
 
-        // MELHORIA: A palavra-chave agora é gerada uma única vez para garantir consistência entre título e conteúdo.
         String palavraChave = palavrasChaveCategoria[random.nextInt(palavrasChaveCategoria.length)];
-
-        // 2. Gera o título do artigo usando a palavra-chave única
         String templateTitulo = templatesTituloCategoria[random.nextInt(templatesTituloCategoria.length)];
-        String tituloArtigo = templateTitulo
-                .replace("{TEMA}", palavraChave)
-                .replace("{ANO}", String.valueOf(LocalDateTime.now().getYear()));
+        String tituloArtigo = templateTitulo.replace("{TEMA}", palavraChave);
 
-        // 3. Gera o conteúdo do artigo usando a MESMA palavra-chave
         String templateConteudo = TEMPLATES_CONTEUDO[random.nextInt(TEMPLATES_CONTEUDO.length)];
         String conteudoArtigo = templateConteudo
                 .replace("{TITULO}", tituloArtigo)
                 .replace("{CATEGORIA}", categoria)
                 .replace("{PALAVRA_CHAVE}", palavraChave);
 
-        // 4. Obtém os dados restantes
         String nomeAutor = StringUtils.removerAcentos(dadosApi.getFullName());
         String dataPublicacao = LocalDateTime.now(ZoneOffset.UTC).format(ISO_FORMATTER);
 
+        // Construção do objeto final (sem necessidade de mais correções aqui)
         return Artigo.builder()
                 .tituloArtigo(StringUtils.removerAcentos(tituloArtigo))
                 .conteudoArtigo(StringUtils.removerAcentos(conteudoArtigo))
