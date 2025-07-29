@@ -15,11 +15,14 @@ public class ArtigoGenerator implements Gerador<Artigo> {
 
     private final FakerApiData dadosApi;
 
-    // --- TEMPLATES PARA GERAÇÃO DE ARTIGOS TEMÁTICOS ---
+    // --- TEMPLATES PARA GERAÇÃO DE ARTIGOS TEMÁTICOS (SUPER EXPANDIDO) ---
 
     private static final String[] CATEGORIAS = {
+            // Originais
             "Tecnologia", "Programação", "Universo e Astronomia", "Ciência e Física",
-            "Saúde e Bem-Estar", "Educação", "História", "Cultura Pop"
+            "Saúde e Bem-Estar", "Educação", "História", "Cultura Pop",
+            // Novas Categorias
+            "Finanças e Investimentos", "Viagens e Turismo", "Gastronomia e Culinária", "Meio Ambiente e Sustentabilidade", "Esportes"
     };
 
     private static final String[][] TEMPLATES_TITULO = {
@@ -38,7 +41,17 @@ public class ArtigoGenerator implements Gerador<Artigo> {
             // História
             {"A Ascensão e Queda do {TEMA}", "O Legado do {TEMA} na Sociedade Moderna", "Como o {TEMA} Mudou o Curso da História"},
             // Cultura Pop
-            {"Análise Profunda de {TEMA}", "O Impacto Cultural de {TEMA}", "Por que {TEMA} Continua Relevante Hoje?"}
+            {"Análise Profunda de {TEMA}", "O Impacto Cultural de {TEMA}", "Por que {TEMA} Continua Relevante Hoje?"},
+            // Finanças e Investimentos (NOVO)
+            {"Guia de {TEMA} para Iniciantes", "Como Investir em {TEMA} com Segurança", "Entendendo o Mercado de {TEMA}"},
+            // Viagens e Turismo (NOVO)
+            {"Roteiro Inesquecível por {TEMA}", "As Melhores Dicas para Viajar para {TEMA}", "O que Fazer em {TEMA}: Um Guia Completo"},
+            // Gastronomia e Culinária (NOVO)
+            {"A Receita Perfeita de {TEMA}", "A História Surpreendente da {TEMA}", "Segredos da Culinária com {TEMA}"},
+            // Meio Ambiente (NOVO)
+            {"O Impacto do {TEMA} no Planeta", "Soluções Sustentáveis: Como Combater o {TEMA}", "Um Futuro com {TEMA}: É Possível?"},
+            // Esportes (NOVO)
+            {"Análise Tática do {TEMA}", "A Carreira Lendária de {TEMA}", "Os Maiores Momentos da História do {TEMA}"}
     };
 
     private static final String[][] PALAVRAS_CHAVE = {
@@ -57,7 +70,17 @@ public class ArtigoGenerator implements Gerador<Artigo> {
             // História
             {"Império Romano", "Antigo Egito", "Revolução Industrial", "Guerra Fria", "Renascimento"},
             // Cultura Pop
-            {"Universo Cinematográfico Marvel", "Star Wars", "Animes Clássicos", "A Indústria dos Games", "Séries de TV"}
+            {"Universo Cinematográfico Marvel", "Star Wars", "Animes Clássicos", "A Indústria dos Games", "Séries de TV"},
+            // Finanças e Investimentos (NOVO)
+            {"Ações da Bolsa", "Criptomoedas", "Renda Fixa", "Fundos Imobiliários", "Planejamento Financeiro"},
+            // Viagens e Turismo (NOVO)
+            {"Sudeste Asiático", "Europa Central", "Patagônia", "Japão", "Litoral do Nordeste"},
+            // Gastronomia e Culinária (NOVO)
+            {"Cozinha Italiana", "Fermentação Natural", "Churrasco Americano", "Comida Vegana Gourmet", "Vinhos Franceses"},
+            // Meio Ambiente (NOVO)
+            {"Aquecimento Global", "Desmatamento", "Poluição Plástica", "Energias Renováveis", "Consumo Consciente"},
+            // Esportes (NOVO)
+            {"Futebol Europeu", "Basquete da NBA", "Fórmula 1", "Tênis", "MMA"}
     };
 
     private static final String[] TEMPLATES_CONTEUDO = {
@@ -66,7 +89,6 @@ public class ArtigoGenerator implements Gerador<Artigo> {
             "O que realmente sabemos sobre {TITULO}? Este post desmistifica os principais pontos relacionados a {PALAVRA_CHAVE} no campo da {CATEGORIA}, trazendo insights valiosos e informações atualizadas para entusiastas e profissionais da área."
     };
 
-    // Recebe os dados da API para não fazer uma nova chamada
     public ArtigoGenerator(FakerApiData dadosApi) {
         this.dadosApi = dadosApi;
     }
@@ -79,20 +101,21 @@ public class ArtigoGenerator implements Gerador<Artigo> {
         String[] templatesTituloCategoria = TEMPLATES_TITULO[indexCategoria];
         String[] palavrasChaveCategoria = PALAVRAS_CHAVE[indexCategoria];
 
-        // 2. Gera o título do artigo
+        // MELHORIA: A palavra-chave agora é gerada uma única vez para garantir consistência entre título e conteúdo.
+        String palavraChave = palavrasChaveCategoria[random.nextInt(palavrasChaveCategoria.length)];
+
+        // 2. Gera o título do artigo usando a palavra-chave única
         String templateTitulo = templatesTituloCategoria[random.nextInt(templatesTituloCategoria.length)];
-        String palavraChaveTitulo = palavrasChaveCategoria[random.nextInt(palavrasChaveCategoria.length)];
         String tituloArtigo = templateTitulo
-                .replace("{TEMA}", palavraChaveTitulo)
+                .replace("{TEMA}", palavraChave)
                 .replace("{ANO}", String.valueOf(LocalDateTime.now().getYear()));
 
-        // 3. Gera o conteúdo do artigo
+        // 3. Gera o conteúdo do artigo usando a MESMA palavra-chave
         String templateConteudo = TEMPLATES_CONTEUDO[random.nextInt(TEMPLATES_CONTEUDO.length)];
-        String palavraChaveConteudo = palavrasChaveCategoria[random.nextInt(palavrasChaveCategoria.length)];
         String conteudoArtigo = templateConteudo
                 .replace("{TITULO}", tituloArtigo)
                 .replace("{CATEGORIA}", categoria)
-                .replace("{PALAVRA_CHAVE}", palavraChaveConteudo);
+                .replace("{PALAVRA_CHAVE}", palavraChave);
 
         // 4. Obtém os dados restantes
         String nomeAutor = StringUtils.removerAcentos(dadosApi.getFullName());
