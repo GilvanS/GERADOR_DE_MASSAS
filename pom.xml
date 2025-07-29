@@ -4,7 +4,7 @@
 
     <groupId>br.com.geradormassa</groupId>
     <artifactId>gerador-massa-unificado</artifactId>
-    <version>1.1.5</version>
+    <version>1.1.6</version>
     <packaging>jar</packaging>
 
     <name>Gerador de Massa Unificado</name>

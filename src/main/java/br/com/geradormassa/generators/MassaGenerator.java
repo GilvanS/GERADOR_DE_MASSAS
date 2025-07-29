@@ -11,9 +11,6 @@ import br.com.geradormassa.model.Usuario;
  */
 public class MassaGenerator implements Gerador<Massa> {
 
-    // O método estático antigo foi removido para favorecer a injeção de dependência
-    // e uma arquitetura mais limpa baseada em objetos.
-
     @Override
     public Massa gerar() {
         // 1. Ponto único de chamada para a API externa
@@ -27,13 +24,22 @@ public class MassaGenerator implements Gerador<Massa> {
         // 3. Orquestra a geração de cada parte
         Usuario usuario = usuarioGenerator.gerar();
         Produto produto = produtoGenerator.gerar();
-        Artigo artigo = artigoGenerator.gerar();
+        Artigo artigoOriginal = artigoGenerator.gerar();
 
-        // 4. Compõe o objeto Massa final
+        // 4. Garante a consistência dos dados, fazendo com que o autor do artigo
+        //    seja o mesmo que o nome completo do usuário gerado.
+        Artigo artigoCorrigido = Artigo.builder()
+                .tituloArtigo(artigoOriginal.getTituloArtigo())
+                .conteudoArtigo(artigoOriginal.getConteudoArtigo())
+                .nomeAutor(usuario.getNomeCompleto()) // <-- CORREÇÃO APLICADA
+                .dataPublicacao(artigoOriginal.getDataPublicacao())
+                .build();
+
+        // 5. Compõe o objeto Massa final com o artigo corrigido
         return Massa.builder()
                 .usuario(usuario)
                 .produto(produto)
-                .artigo(artigo)
+                .artigo(artigoCorrigido)
                 .build();
     }
 }
