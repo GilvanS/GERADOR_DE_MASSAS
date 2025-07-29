@@ -19,6 +19,7 @@ br\com\geradormassa\model\Usuario.class
 br\com\geradormassa\generators\PasswordGenerator.class
 br\com\geradormassa\generators\MassaGenerator.class
 br\com\geradormassa\Main.class
+org\br\com\test\utils\massas\CsvUtils.class
 br\com\geradormassa\model\Massa$MassaBuilder.class
 br\com\geradormassa\generators\FakerApiData.class
 br\com\geradormassa\model\Empresa.class

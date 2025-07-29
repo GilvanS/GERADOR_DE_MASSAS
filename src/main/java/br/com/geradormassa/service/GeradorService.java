@@ -8,28 +8,39 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Camada de serviço responsável por orquestrar o processo de geração e escrita de dados.
+ */
 public class GeradorService {
 
     private final CsvWriterService csvWriterService;
-    private final MassaGenerator massaGenerator; // Agora usamos uma instância
+    private final MassaGenerator massaGenerator;
 
     public GeradorService() {
         this.csvWriterService = new CsvWriterService();
-        this.massaGenerator = new MassaGenerator(); // Instanciamos o gerador principal
+        this.massaGenerator = new MassaGenerator();
     }
 
-    public void gerarMassaUnificada(int quantidade, String filePath) {
-        try {
-            List<Massa> massas = new ArrayList<>();
-            for (int i = 0; i < quantidade; i++) {
-                // Chamamos o método 'gerar()' da nossa instância
-                massas.add(massaGenerator.gerar());
-            }
-            csvWriterService.escreverMassa(massas, filePath);
-            System.out.println("Massa de dados gerada com sucesso em: " + filePath);
-        } catch (IOException e) {
-            System.err.println("Erro ao gerar a massa de dados: " + e.getMessage());
-            e.printStackTrace();
+    /**
+     * Gera um número especificado de registros de dados e os escreve em um arquivo CSV.
+     *
+     * @param quantidade A quantidade de registros de dados a serem gerados.
+     * @param filePath   O caminho para o arquivo CSV de saída.
+     * @throws IOException Se ocorrer um erro de I/O durante a escrita do arquivo.
+     */
+    public void gerarMassaUnificada(int quantidade, String filePath) throws IOException {
+        if (quantidade <= 0) {
+            System.out.println("Quantidade de registros para gerar é zero ou negativa. Nenhuma ação foi tomada.");
+            return;
         }
+
+        System.out.println("Gerando " + quantidade + " registros de massa de dados...");
+        List<Massa> massas = new ArrayList<>();
+        for (int i = 0; i < quantidade; i++) {
+            massas.add(massaGenerator.gerar());
+        }
+
+        csvWriterService.escreverMassa(massas, filePath);
+        System.out.println("Massa de dados gravada com sucesso em: " + filePath);
     }
 }
