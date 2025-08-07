@@ -1,0 +1,36 @@
+{
+  "name": "gerador_de_massas",
+  "version": "1.0.0",
+  "description": "Este projeto é uma biblioteca Java robusta e extensível, projetada para gerar massas de dados de teste complexas e realistas. O objetivo é fornecer uma única ferramenta capaz de criar dados consistentes para diversas entidades (como Usuários, Produtos e Artigos), exportando-os para um arquivo `.csv` pronto para ser consumido por projetos de automação de testes, especialmente em cenários de BDD com Cucumber.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "tsx src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GilvanS/GERADOR_DE_MASSAS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/GilvanS/GERADOR_DE_MASSAS/issues"
+  },
+  "homepage": "https://github.com/GilvanS/GERADOR_DE_MASSAS#readme",
+  "dependencies": {
+    "@faker-js/faker": "^9.9.0",
+    "axios": "^1.11.0",
+    "csv-stringify": "^6.6.0",
+    "csv-writer": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.2.0",
+    "jest": "^30.0.5",
+    "ts-jest": "^29.4.1",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2"
+  }
+}
