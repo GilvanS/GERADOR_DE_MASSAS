@@ -38,8 +38,14 @@ function gerarCep(): string {
     return faker.location.zipCode('#####-###');
 }
 
+function gerarTelefoneBr(): string {
+    const ddd = faker.helpers.arrayElement(['11', '21', '31', '41', '51', '61', '71', '81', '91']);
+    const numero = `9${faker.string.numeric(8)}`;
+    return `${ddd}${numero}`;
+}
+
 export function gerarUsuario(dadosApi: FakerApiData): Usuario {
-    const { firstName, lastName, phoneNumber, addressLine, city, stateRegion, country, cardNumber, expiryDate } = dadosApi;
+    const { firstName, lastName, addressLine, city, stateRegion, country } = dadosApi;
     const nomeCompleto = `${firstName} ${lastName}`;
 
     const nomeUsuario = `${removerAcentos(firstName)}.${removerAcentos(lastName)}`.toLowerCase();
@@ -50,7 +56,9 @@ export function gerarUsuario(dadosApi: FakerApiData): Usuario {
     const cnpj = gerarCnpj();
     const razaoSocial = `${removerAcentos(nomeCompleto)} LTDA`;
     const senha = faker.internet.password({ length: 12, memorable: false, pattern: /\w/ });
-    const telefone = phoneNumber.replace(/\D/g, '');
+    const telefone = gerarTelefoneBr();
+    const cardNumber = faker.finance.creditCardNumber().replace(/\D/g, '');
+    const expiryDate = faker.date.future({ years: 3 }).toLocaleDateString('pt-BR');
 
     return {
         nomeCompleto: removerAcentos(nomeCompleto),
