@@ -43,7 +43,6 @@ export async function escreverMassaEmCsv(massas: Massa[], filePath: string): Pro
     const fileExists = fs.existsSync(filePath);
 
     const records = massas.map(massa => ({
-        // Mapeamento...
         'usuario.nomeCompleto': massa.usuario.nomeCompleto,
         'usuario.nomeUsuario': massa.usuario.nomeUsuario,
         'usuario.email': massa.usuario.email,
