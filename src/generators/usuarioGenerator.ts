@@ -11,7 +11,7 @@ const DOMINIOS_EMAIL = [
 ];
 
 function removerAcentos(texto: string): string {
-    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/'/g, "");
 }
 
 // Funções para gerar documentos brasileiros (substituindo a lógica Java)
