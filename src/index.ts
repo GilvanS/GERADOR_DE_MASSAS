@@ -3,7 +3,7 @@ import * as path from 'path';
 import { gerarListaDeMassa } from './services/geradorService';
 import { escreverMassaEmCsv } from './writers/csvWriterService';
 
-const QUANTIDADE_REGISTROS = 15;
+const QUANTIDADE_REGISTROS = 50;
 const DIRETORIO_SAIDA = 'output';
 const NOME_ARQUIVO = 'massaDeDados.csv';
 
