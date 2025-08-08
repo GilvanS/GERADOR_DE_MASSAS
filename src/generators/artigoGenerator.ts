@@ -52,9 +52,9 @@ function removerAcentos(texto: string): string {
 
 export function gerarArtigo(dadosApi: FakerApiData): Artigo {
     const indexCategoria = faker.number.int({ min: 0, max: CATEGORIAS.length - 1 });
-    const categoria = CATEGORIAS[indexCategoria];
-    const templatesTituloCategoria = TEMPLATES_TITULO[indexCategoria];
-    const palavrasChaveCategoria = PALAVRAS_CHAVE[indexCategoria];
+    const categoria = CATEGORIAS[indexCategoria]!;
+    const templatesTituloCategoria = TEMPLATES_TITULO[indexCategoria]!;
+    const palavrasChaveCategoria = PALAVRAS_CHAVE[indexCategoria]!;
 
     const palavraChave = faker.helpers.arrayElement(palavrasChaveCategoria);
     const templateTitulo = faker.helpers.arrayElement(templatesTituloCategoria);
