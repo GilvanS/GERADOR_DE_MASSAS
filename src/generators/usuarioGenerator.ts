@@ -3,11 +3,39 @@ import { Usuario } from '../models/Usuario';
 import { FakerApiData } from './fakerApi';
 
 const DOMINIOS_EMAIL = [
+    // --- Provedores Comuns (.com) ---
     "@gmail.com", "@yahoo.com", "@outlook.com", "@hotmail.com",
     "@icloud.com", "@aol.com", "@protonmail.com", "@zoho.com",
     "@yandex.com", "@gmx.com", "@mail.com", "@live.com",
-    "@msn.com", "@me.com", "@uol.com.br", "@bol.com.br",
-    "@terra.com.br", "@ig.com.br", "@inbox.com", "@fastmail.com"
+    "@msn.com", "@me.com", "@inbox.com", "@fastmail.com",
+
+    // --- Provedores Comuns (.com.br) ---
+    "@uol.com.br", "@bol.com.br", "@terra.com.br", "@ig.com.br",
+
+    // --- Gigantes de Tecnologia (.com) ---
+    "@google.com", "@apple.com", "@microsoft.com", "@amazon.com",
+    "@meta.com", "@netflix.com", "@spotify.com", "@oracle.com",
+    "@ibm.com", "@salesforce.com", "@adobe.com", "@cisco.com",
+    "@intel.com", "@nvidia.com",
+
+    // --- Gigantes de Tecnologia (.com.br) ---
+    "@google.com.br", "@microsoft.com.br", "@amazon.com.br",
+    "@oracle.com.br", "@ibm.com.br",
+
+    // --- Grandes Indústrias (.com) ---
+    "@ge.com", "@siemens.com", "@boeing.com", "@ford.com",
+    "@pfizer.com", "@cocacola.com", "@pg.com", "@walmart.com",
+
+    // --- Grandes Indústrias (.com.br) ---
+    "@vale.com.br", "@petrobras.com.br", "@embraer.com.br",
+    "@ambev.com.br", "@gerdau.com.br", "@weg.com.br", "@natura.com.br",
+
+    // --- Universidades Famosas (.br) ---
+    "@usp.br", "@unicamp.br", "@ufrj.br", "@ufmg.br", "@puc-rio.br",
+    "@fgv.br", "@ufrgs.br", "@ufpe.br", "@mackenzie.br",
+
+    // --- Universidades Famosas (Internacionais) ---
+    "@mit.edu", "@harvard.edu", "@stanford.edu", "@cam.ac.uk", "@ox.ac.uk"
 ];
 
 function removerAcentos(texto: string): string {
@@ -45,8 +73,12 @@ function gerarTelefoneBr(): string {
 }
 
 function gerarSenhaCustomizada(primeiroNome: string, ultimoNome: string, cpf: string): string {
-    const parteSobrenome = ultimoNome.charAt(0).toUpperCase() + ultimoNome.substring(1, 3).toLowerCase();
-    const parteNome = primeiroNome.charAt(0).toUpperCase() + primeiroNome.substring(1, 2).toLowerCase();
+    // CORREÇÃO: Remove acentos para garantir que a senha não contenha caracteres especiais
+    const nomeLimpo = removerAcentos(primeiroNome);
+    const sobrenomeLimpo = removerAcentos(ultimoNome);
+
+    const parteSobrenome = sobrenomeLimpo.charAt(0).toUpperCase() + sobrenomeLimpo.substring(1, 3).toLowerCase();
+    const parteNome = nomeLimpo.charAt(0).toUpperCase() + nomeLimpo.substring(1, 2).toLowerCase();
     const parteCpf = cpf.slice(-2);
     return `${parteSobrenome}${parteNome}${parteCpf}`;
 }
@@ -64,12 +96,12 @@ export function gerarUsuario(dadosApi: FakerApiData): Usuario {
     const razaoSocial = `${removerAcentos(nomeCompleto)} LTDA`;
     const telefone = gerarTelefoneBr();
     const cardNumber = faker.finance.creditCardNumber().replace(/\D/g, '');
-    
+
     const futureDate = faker.date.future({ years: 3 });
     const month = String(futureDate.getMonth() + 1).padStart(2, '0');
     const year = String(futureDate.getFullYear()).slice(-2);
     const expiryDate = `${month}/${year}`;
-    
+
     const senha = gerarSenhaCustomizada(firstName, lastName, cpf);
 
     return {
