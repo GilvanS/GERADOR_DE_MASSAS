@@ -58,7 +58,7 @@ export async function escreverMassaEmCsv(massas: Massa[], filePath: string): Pro
         'usuario.zipCode': `="${massa.usuario.zipCode}"`,
         'usuario.country': massa.usuario.country,
         'usuario.cardNumber': `="${massa.usuario.cardNumber}"`,
-        'usuario.expiryDate': massa.usuario.expiryDate,
+        'usuario.expiryDate': `="${massa.usuario.expiryDate}"`,
         'produto.nomeProduto': massa.produto.nomeProduto,
         'produto.preco': massa.produto.preco,
         'produto.descricaoProduto': massa.produto.descricaoProduto,
