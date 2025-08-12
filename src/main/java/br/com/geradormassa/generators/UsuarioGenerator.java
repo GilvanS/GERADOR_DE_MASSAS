@@ -11,7 +11,7 @@ public class UsuarioGenerator implements Gerador<Usuario> {
     private final FakerApiData dadosApi;
     private static final Random random = new Random();
 
-    // LISTA EXPANDIDA PARA 20 DOMÍNIOS
+    // ... (código dos domínios de email permanece o mesmo)
     private static final String[] DOMINIOS_EMAIL = {
             // Populares Globais
             "@gmail.com", "@yahoo.com", "@outlook.com", "@hotmail.com",
@@ -26,8 +26,7 @@ public class UsuarioGenerator implements Gerador<Usuario> {
             "@inbox.com", "@fastmail.com"
     };
 
-    // O gerador agora recebe os dados da API para não precisar fazer uma nova chamada.
-    // Isso melhora o desempenho e a coesão.
+
     public UsuarioGenerator(FakerApiData dadosApi) {
         this.dadosApi = dadosApi;
     }
@@ -38,18 +37,24 @@ public class UsuarioGenerator implements Gerador<Usuario> {
         String lastName = dadosApi.getLastName();
         String nomeCompleto = firstName + " " + lastName;
 
+        String nomeLimpo = StringUtils.limparParaNomeSimples(firstName);
+        String sobrenomeLimpo = StringUtils.limparParaNomeSimples(lastName);
+        String nomeCompletoLimpo = StringUtils.limparParaNomeSimples(nomeCompleto);
+
         String nomeUsuario = normalizeString(firstName) + "." + normalizeString(lastName);
         String dominioAleatorio = DOMINIOS_EMAIL[random.nextInt(DOMINIOS_EMAIL.length)];
         String email = normalizeString(lastName) + "." + normalizeString(firstName) + dominioAleatorio;
 
         String cpf = DocumentosGenerator.gerarCpf(false);
         String cnpj = DocumentosGenerator.gerarCnpj(false);
-        String razaoSocial = StringUtils.removerAcentos(nomeCompleto) + " LTDA";
-        String senha = PasswordGenerator.gerarSenhaCustomizada(nomeCompleto, cpf);
+        String razaoSocial = nomeCompletoLimpo + " LTDA";
+        String senha = PasswordGenerator.gerarSenhaCustomizada(nomeCompletoLimpo, cpf);
         String telefone = dadosApi.getPhoneNumber().replaceAll("[^\\d]", "");
 
         return Usuario.builder()
-                .nomeCompleto(StringUtils.removerAcentos(nomeCompleto))
+                .nome(nomeLimpo)
+                .sobrenome(sobrenomeLimpo)
+                .nomeCompleto(nomeCompletoLimpo)
                 .nomeUsuario(nomeUsuario)
                 .email(email)
                 .senha(senha)
@@ -59,6 +64,8 @@ public class UsuarioGenerator implements Gerador<Usuario> {
                 .razaoSocial(razaoSocial)
                 .cnpj(cnpj)
                 .addressLine(StringUtils.removerAcentos(dadosApi.getAddressLine()))
+                // ===== MUDANÇA 5: PREENCHENDO O NOVO CAMPO =====
+                .numeroEndereco(dadosApi.getBuildingNumber())
                 .city(StringUtils.removerAcentos(dadosApi.getCity()))
                 .stateRegion(StringUtils.removerAcentos(dadosApi.getStateRegion()))
                 .zipCode(DocumentosGenerator.gerarCep(false))
@@ -72,7 +79,7 @@ public class UsuarioGenerator implements Gerador<Usuario> {
         if (input == null || input.trim().isEmpty()) {
             return "";
         }
-        String normalized = Normalizer.normalize(input.toLowerCase(), Normalizer.Form.NFD);
-        return normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        String semAcentos = StringUtils.removerAcentos(input.toLowerCase());
+        return semAcentos.replaceAll("[^a-z0-9]", "");
     }
 }

@@ -8,15 +8,16 @@ import lombok.Getter;
 @Builder
 public class Artigo {
 
-    @CsvColumn(header = "TituloArtigo", order = 23)
+    // ===== ORDENS ATUALIZADAS (incrementadas em 1) =====
+    @CsvColumn(header = "TituloArtigo", order = 26)
     private String tituloArtigo;
 
-    @CsvColumn(header = "ConteudoArtigo", order = 24)
+    @CsvColumn(header = "ConteudoArtigo", order = 27)
     private String conteudoArtigo;
 
-    @CsvColumn(header = "NomeAutor", order = 25)
+    @CsvColumn(header = "NomeAutor", order = 28)
     private String nomeAutor;
 
-    @CsvColumn(header = "DataPublicacao", order = 26)
+    @CsvColumn(header = "DataPublicacao", order = 29)
     private String dataPublicacao;
 }

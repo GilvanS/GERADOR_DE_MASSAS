@@ -26,6 +26,27 @@ public final class StringUtils {
     }
 
     /**
+     * NOVO MÉTODO: Limpa uma string para ser usada como um nome simples.
+     * Remove acentos, substitui apóstrofos e hífens por espaços e elimina
+     * quaisquer outros caracteres que não sejam letras ou espaços.
+     * Exemplo: "Célia O'Hara-Smith" se torna "Celia O Hara Smith".
+     *
+     * @param input A string de nome a ser limpa.
+     * @return A string limpa, contendo apenas letras e espaços.
+     */
+    public static String limparParaNomeSimples(String input) {
+        if (input == null) {
+            return null;
+        }
+        // 1. Remove acentos
+        String semAcentos = removerAcentos(input);
+        // 2. Substitui hífens e apóstrofos por espaço para não juntar palavras (ex: O'Hara -> O Hara)
+        String comEspacos = semAcentos.replaceAll("[-']", " ");
+        // 3. Remove qualquer coisa que não seja letra ou espaço e normaliza espaços múltiplos
+        return comEspacos.replaceAll("[^\\p{L}\\s]", "").replaceAll("\\s+", " ").trim();
+    }
+
+    /**
      * Formata um valor para ser tratado como texto explícito pelo Excel ao abrir um CSV.
      * Envolve o valor na fórmula `="<valor>"`, o que preserva zeros à esquerda e evita notação científica.
      * @param valor O objeto a ser formatado.

@@ -32,7 +32,7 @@ public class Main {
             // Se a pasta "output" não existir, ela será criada automaticamente.
             Files.createDirectories(caminhoCompleto.getParent());
 
-            int quantidadeRegistros = 5;
+            int quantidadeRegistros = 25;
 
             System.out.println("Gerando " + quantidadeRegistros + " registros em '" + caminhoCompleto.toAbsolutePath() + "'...");
             // 4. Passa o caminho como uma String para o serviço.

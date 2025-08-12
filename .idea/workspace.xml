@@ -4,11 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08ca88e8-c7b8-4e40-b621-1cfce78f0481" name="Changes" comment="" />
+    <list default="true" id="08ca88e8-c7b8-4e40-b621-1cfce78f0481" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/generators/FakerApiData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/generators/FakerApiData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/generators/UsuarioGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/generators/UsuarioGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Artigo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Artigo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Produto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Produto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/utils/StringUtils.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -18,40 +35,58 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "GilvanJSousa"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;GilvanJSousa&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/GilvanS/GERADOR_DE_MASSAS.git",
-    "accountId": "cc4a2d4b-7370-40bb-88fe-b2bfda68adbf"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/GilvanS/GERADOR_DE_MASSAS.git&quot;,
+    &quot;accountId&quot;: &quot;cc4a2d4b-7370-40bb-88fe-b2bfda68adbf&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 5
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="318kzcFhJOSnCq25jWI73tXXObV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "gerador-de-massas-maven"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;gerador-de-massas-maven&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.geradormassa.Main" />
+      <module name="gerador-massa-unificado" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.geradormassa.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="GERADOR_DE_MASSAS" />
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
