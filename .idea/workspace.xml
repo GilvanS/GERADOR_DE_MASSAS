@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="08ca88e8-c7b8-4e40-b621-1cfce78f0481" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/generators/FakerApiData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/generators/FakerApiData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/generators/UsuarioGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/generators/UsuarioGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Artigo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Artigo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Produto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Produto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/model/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/utils/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/geradormassa/utils/StringUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
